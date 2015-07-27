@@ -1,0 +1,3 @@
+#!/bin/bash
+mkdir sat_img
+mkdir radar_img
