@@ -6,6 +6,8 @@ Build a toolkit of weather scripts for retrieving eg
 - forecasts
 - current and historical conditions
 
+Eventually, we will have some kind of web frontend to show us all the pretty pictures.
+
 Currently, we have
 - radar.py : get the day's radar images for Strathmore weather radar
 - satellite.py : get the day's satellite images.
