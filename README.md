@@ -9,14 +9,9 @@ Build a toolkit of weather scripts for retrieving eg
 Eventually, we will have some kind of web frontend to show us all the pretty pictures.
 
 Currently, we have
-- radar.py : get the day's radar images for Strathmore weather radar
-- satellite.py : get the day's satellite images.
+ImageAggregator.py. Should provide some basic usage examples here once at v0.1
 
-In both cases, we will only grab images that we don't already have. Also, we only grab images from today.
-The two scripts are nearly identical, and will soon be combined.
+Makes use of the great datetime library.
 
-
-It would be nice if we automatically produced gifs of every hour of activity, or something...
-
-Imagemagick might help:
+Imagemagick might help for gif generation:
 convert radar_img/* radar.gif
