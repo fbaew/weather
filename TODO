@@ -1,1 +1,14 @@
--rewrite radar.py in python because it's actually in bash right now.
+-time zone considerations - just do everything in UTC...
+
+Store filenames in established pattern, radar default format of 2015_07_29_17_40 OK?
+
+Figure out all services and url patterns we want.
+
+have list of stations in script, maybe s=Satllite(ImageAggregator) takes an arg string of "XSM" and sets up s.url, etc.
+
+Have to keep an eye out for any url patterns that aren't rounded to clean 10 minute intervals.
+
+dateRange(self, fromTime,toTime=datetime.datetime.utcnow(),minuteInterval=10) should make this it's own class and decompose
+into a couple different functions.
+
+Work is needed on function names, better OO
