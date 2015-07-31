@@ -51,11 +51,12 @@ class ImageAggregator(object):
             #terminate program in place. remove the 'raise' in the exception to have it continue
             #running despite errors.
             try:
-                r = requests.get(url)
+                #r = requests.get(url)
                 #imageFile = open(join(self.directoryPath, fileName),"wb")
                 print("\nAttempting to get image at: " + url)
                 #imageFile.write(r.content)
                 #imageFile.close()
+                print(hello)
                 print("File written to: " + join(self.directoryPath + fileName) + "\n")
             except:
                 #make this better eventually
@@ -87,9 +88,10 @@ class ImageAggregator(object):
         dateList = []
         c = fromTime
         while (c <= toTime):
-            dateList.append("{}_{}_{}_{}_{}".format(c.year,c.month,c.day,c.hour,c.minute))
+            dateList.append("{0:0>4}_{1:0>2}_{2:0>2}_{3:0>2}_{4:0>2}".format(c.year,c.month,c.day,c.hour,c.minute))
             c += datetime.timedelta(minutes=minuteInterval)
 
+        print(dateList)
         return dateList
 
     def makeLatestImage(self, fromTime):
