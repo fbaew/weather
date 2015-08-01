@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import datetime
 import requests
-import urllib3
+#import urllib3
 from os import listdir
 from os.path import isfile,join
 
@@ -51,12 +51,12 @@ class ImageAggregator(object):
             #terminate program in place. remove the 'raise' in the exception to have it continue
             #running despite errors.
             try:
-                #r = requests.get(url)
-                #imageFile = open(join(self.directoryPath, fileName),"wb")
+                r = requests.get(url)
+                imageFile = open(join(self.directoryPath, fileName),"wb")
                 print("\nAttempting to get image at: " + url)
-                #imageFile.write(r.content)
-                #imageFile.close()
-                print(hello)
+                imageFile.write(r.content)
+                imageFile.close()
+                #print(hello)
                 print("File written to: " + join(self.directoryPath + fileName) + "\n")
             except:
                 #make this better eventually
@@ -130,7 +130,7 @@ class Radar(ImageAggregator):
 
     def __init__(self):
         self.directoryPath = "radar_img/"
-        self.url = "http://weather.gc.ca/data/radar/temp_image/XSM/XSM_PRECIP_RAIN_"
+        self.url = "http://weather.gc.ca/data/radar/temp_image/XBE/XBE_PRECIP_RAIN_"
         self.fileExtension = ".GIF"
         #This service operates on the same naming scheme as the remote URLs,
         #no need to convert date string format. Passes string it receives.
