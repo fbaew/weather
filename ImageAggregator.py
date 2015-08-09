@@ -124,21 +124,26 @@ class ImageAggregator(object):
         print("\n")
         
     def nameToTime(self, dateString):
-        """Parses a date/time of format 2015_07_29_17_40 and returns a datetime object of that time
+        """Parses a date/time of format 2015_07_29_17_40 and returns a datetime object
 
             To add: error checking. Assumes proper format."""
         obj = datetime.datetime(dateString.split("_"))
         return obj
 
 class Radar(ImageAggregator):
-    """Implementation for weather.gc.ca radar images. Single hardcoded example at the moment.
-    Example URL: 
+    """
+    Times in UTC
     https://weather.gc.ca/data/radar/temp_image/XSM/XSM_PRECIP_RAIN_2015_07_29_17_40.GIF
     XSM_PRECIP_RAIN_2015_07_29_17_40
                     YYYY_MO_DD_HH_MI
     https://weather.gc.ca/cacheable/images/radar/layers/rivers/xsm_rivers.gif
     https://weather.gc.ca/cacheable/images/radar/layers/roads/XSM_roads.gif?ver=1410285168
     https://weather.gc.ca/cacheable/images/radar/layers/additional_cities/xsm_towns.gif
+
+    RADAR:
+    http://dd.weather.gc.ca/radar/doc/README_radar.txt
+    #3 letter radar station name list
+    http://www.msc-smc.ec.gc.ca/projects/nrp/Montreal_e.cfm
     """
 
     def __init__(self):
@@ -154,10 +159,13 @@ class Radar(ImageAggregator):
 class Satellite(ImageAggregator):
     """ Implentation for Alberta Satellite imagery. Single imagetype at the moment.
         Currently only one map type, need to create list of all available.
-        URL sample:                                          YYYY@MO@DD_HHhMIm.jpg
+        URL sample:                                          YYYY@MM@DD_HHhMMm.jpg
 
         self.datestring = "2015@07@16_21h00m.jpg"
-    """
+        Example URL: https://weather.gc.ca/data/satellite/goes_wcan_1070_m_2015@08@01_21h00m.jpg
+
+        Only goes back 48 hours.
+        """
 
     def __init__(self):
         self.directoryPath = "sat_img/"
