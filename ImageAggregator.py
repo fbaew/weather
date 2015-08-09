@@ -33,10 +33,8 @@ class ImageAggregator(object):
     def downloadImages(self, nameList):
         """Takes list of filenames in format YYYY_MM_DD_HH_MM, downloads those images from self.url. 
 
-              Can be overridden by children for differing filename conventions. Checks if  file
-              exists locally, appends appropriate file extension. 
-
-              Todo: This function can and should be split up for more general usage. Should accept single arg"""
+              Todo: Should accept single string arg. Split into separate functions.
+        """
 
         urlList=[]
         for dateString in nameList:
@@ -47,18 +45,33 @@ class ImageAggregator(object):
             if isfile(self.directoryPath + fileName):
                 print("File already exists, skipping: " + fileName)
                 continue #skips this file
-            #Needs to catch requests exceptions, io exceptions. Rough catch-all that will
-            #terminate program in place. remove the 'raise' in the exception to have it continue
-            #running despite errors.
+
             try:
                 r = requests.get(url)
+                r.raise_for_status() 
+            except requests.exceptions.ConnectionError as e:
+                print("Skipping file. Connection error connecting to " + url)
+                print(e)
+                print()
+                continue
+            except requests.exceptions.HTTPError as e:
+                print("Server served an HTTP error. Skipping " + url)
+                print(e)
+                print()
+                continue
+            except requests.exceptions.RequestException as e:
+                print("Now would be a good time to handle a new exception.")
+                print(e)
+                print()
+                sys.exit(1)
+
+            try:
                 imageFile = open(join(self.directoryPath, fileName),"wb")
-                print("\nAttempting to get image at: " + url)
+                print("Trying: " + url)
                 imageFile.write(r.content)
                 imageFile.close()
-                #print(hello)
                 print("File written to: " + join(self.directoryPath + fileName) + "\n")
-            except:
+            except IOError:
                 #make this better eventually
                 print("Error opening/writing  " + join(self.directoryPath, fileName) + ". Abort! Abort! Abandon program!")
                 raise
