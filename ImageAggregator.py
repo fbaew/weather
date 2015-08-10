@@ -78,8 +78,8 @@ class ImageAggregator(object):
                 print("Error opening/writing  " + fileName + ". Abort! Abort! Abandon program!")
                 raise
 
-
-    def dateRange(self, fromTime, toTime=datetime.datetime.utcnow(), minuteInterval=10):
+    @staticmethod
+    def dateRange(fromTime, toTime=datetime.datetime.utcnow(), minuteInterval=10):
         """ Generator function for datetime objects fromTime toTime at given minuteInterval.
         """
         #Floors times to 10 minutes, wiping seconds, microseconds
@@ -173,18 +173,16 @@ class Satellite(ImageAggregator):
 
 if __name__ == "__main__":
     now = datetime.datetime.utcnow()
-
     fortyMinutesAgo = now - datetime.timedelta(minutes=40)
 
     sat = Satellite()
-    sat.downloadImages(sat.dateRange(fortyMinutesAgo))
+    dateRange = sat.dateRange
+    sat.downloadImages(dateRange(fortyMinutesAgo))
     sat.printImageList()
-
-    for date in sat.dateRange(now,fortyMinutesAgo):
-        print(date)
-    for date in sat.dateRange(fortyMinutesAgo,now):
-        print(date)
 
     rad = Radar()
     rad.downloadImages(rad.dateRange(fortyMinutesAgo))
     rad.printImageList()
+
+    for date,reversedate in zip(dateRange(now,fortyMinutesAgo),dateRange(fortyMinutesAgo,now)):
+        print(date.isoformat() + "  ||  " + reversedate.isoformat())
