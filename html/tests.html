@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Weather Front End Test Suite</title>
+  <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.20.0.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="http://code.jquery.com/qunit/qunit-1.20.0.js"></script>
+  <script src="latest.js"></script>
+  <script>
+
+    QUnit.test( "Check that we are returning only 4-digit timestamps", function ( assert ) {
+        var test_stamps = getLastTenDates(new Date());
+        assert.equal(test_stamps.length, 10, "There should be 10 timestamps")
+
+        for (i = 0; i < test_stamps.length; i++) {
+            assert.equal(test_stamps[i].length, 4, "Timestamp " + i + "is 4 digits. ("+test_stamps[i]+")")
+        }
+    });
+  </script>
+</body>
+</html>
