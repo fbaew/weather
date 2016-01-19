@@ -17,7 +17,14 @@
         assert.equal(test_stamps.length, 10, "There should be 10 timestamps")
 
         for (i = 0; i < test_stamps.length; i++) {
-            assert.equal(test_stamps[i].length, 4, "Timestamp " + i + "is 4 digits. ("+test_stamps[i]+")")
+            assert.equal(test_stamps[i].length, 4, "Timestamp " + i + " is 4 digits. ("+test_stamps[i]+")")
+        }
+    });
+
+    QUnit.test( "Check that we are rounding the minutes properly", function (assert ) {
+        var timestamps = getLastTenDates(new Date());
+        for (i=0;i<timestamps.length; i++){
+            assert.equal(timestamps[i]%10, 0, "Timestamp "+i+" is divisible by 10.")
         }
     });
   </script>
