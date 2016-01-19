@@ -11,26 +11,30 @@ function pad(n,width,z) {
     return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-function getLastTenDates(startingdate) {
+function getLastTenDates(startingDate) {
     var i = 10;
-    hours = startingdate.getHours()
-    minutes = Math.round(startingdate.getMinutes()/10)*10
+
+    if (Math.round(startingDate.getMinutes()/10) *10 > 54) {
+        startingDate.setMinutes(00)
+        startingDate.setHours(startingDate.getHours()+1)
+    } else {
+        startingDate.setMinutes(Math.round(startingDate.getMinutes()/10)*10)
+    }
+
+    dateCursor = new Date(startingDate);
+
     var timestamps = [];
     while (i > 0) {
-        timestamps.push("" + pad(hours,2) + "" + pad(minutes,2))
+      
+        timestamps.push("" + 
+            pad(dateCursor.getHours(),2) + 
+            "" + 
+            pad(dateCursor.getMinutes(),2))
         i -= 1
-        if (minutes >= 10) {
-            minutes -= 10
-        }
-        else {
-            minutes = 50
-            if (hours > 0) {
-                hours -= 1
-            }
-        }
+        dateCursor.setMinutes(dateCursor.getMinutes()-10)
     }
     console.log(timestamps)
-    return timestamps;
+    return timestamps.sort();
 }
 
 function makeImageRoster(dates) {
