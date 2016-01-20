@@ -13,8 +13,8 @@ function pad(n,width,z) {
 
 function getLastTenDates(startingDate) {
     var i = 10;
-
-    if (Math.round(startingDate.getMinutes()/10) *10 > 54) {
+    console.log("Getting timestamps from " + startingDate)
+    if (Math.round(startingDate.getMinutes()/10) *10 == 60) {
         startingDate.setMinutes(00)
         startingDate.setHours(startingDate.getHours()+1)
     } else {
@@ -26,10 +26,11 @@ function getLastTenDates(startingDate) {
     var timestamps = [];
     while (i > 0) {
       
-        timestamps.push("" + 
-            pad(dateCursor.getHours(),2) + 
-            "" + 
-            pad(dateCursor.getMinutes(),2))
+        timestamps.push(dateCursor.getFullYear() +
+                        pad(dateCursor.getMonth()+1,2) + 
+                        pad(dateCursor.getDate(),2) +
+                        pad(dateCursor.getUTCHours(),2) + 
+                        pad(dateCursor.getMinutes(),2))
         i -= 1
         dateCursor.setMinutes(dateCursor.getMinutes()-10)
     }
@@ -44,7 +45,7 @@ function makeImageRoster(dates) {
          * We should really build this semantically but for now #fuckit
          *
          * */
-        var next_image = "\n<img src=\"http://dd.weather.gc.ca/radar/PRECIPET/GIF/XSM/20160117"
+        var next_image = "\n<img src=\"http://dd.weather.gc.ca/radar/PRECIPET/GIF/XSM/"
         next_image += dates[i]+"_XSM_PRECIPET_RAIN.gif\" id=\"frame"+i+"\">";
         overview.innerHTML += next_image;
     }
