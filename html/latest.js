@@ -46,7 +46,7 @@ function makeImageRoster(dates) {
          *
          * */
         var next_image = "\n<img src=\"http://dd.weather.gc.ca/radar/PRECIPET/GIF/XSM/"
-        next_image += dates[i]+"_XSM_PRECIPET_RAIN.gif\" id=\"frame"+i+"\">";
+        next_image += dates[i]+"_XSM_PRECIPET_SNOW.gif\" id=\"frame"+i+"\">";
         overview.innerHTML += next_image;
     }
 }
@@ -61,6 +61,8 @@ function animate() {
     if (document.frame >= document.dates.length) {
         document.frame = 0;
     }
+
+    document.getElementById("frame").innerHTML = document.dates[document.frame]
 }
 
 function start() {
