@@ -17,6 +17,7 @@ function getLastTenDates(startingDate) {
     if (Math.round(startingDate.getMinutes()/10) *10 == 60) {
         startingDate.setMinutes(00)
         startingDate.setHours(startingDate.getHours()+1)
+        startingDate.setMinutes(startingDate.getMinutes()-10)
     } else {
         startingDate.setMinutes(Math.round(startingDate.getMinutes()/10)*10)
     }
@@ -39,6 +40,51 @@ function getLastTenDates(startingDate) {
 }
 
 function makeImageRoster(dates) {
+
+/*
+    * From http://dd.weather.gc.ca/radar/doc/README_radar.txt
+    * 
+    * 1. PRECIP-ET
+    * Images for regional composites (5 regions of Canada) and individual radar are
+    * available.  Two intensities scale (8 and 14 colors) are also available for each
+    * image. 
+    * 
+    * Composites with 14 colors intensity scale:
+    *   YYYMMDDHHmm_XXX_PRECIPET_RAIN_WT.gif 
+    *   YYYMMDDHHmm_XXX_PRECIPET_SNOW_WT.gif 
+    *   ex: 201409201350_ATL_PRECIPET_RAIN_WT.gif
+    * 
+    *   Composites with 8 colors intensity scale:
+    *   - YYYMMDDHHmm_XXX_PRECIPET_RAIN_A11Y.gif 
+    *   - YYYMMDDHHmm_XXX_PRECIPET_SNOW_A11Y.gif 
+    *   - ex: 201409201350_ATL_PRECIPET_RAIN_A11Y.gif
+    * 
+    *   Individual radar with 14 colors intensity scale:
+    *   - YYYMMDDHHmm_XXX_PRECIPET_RAIN.gif 
+    *   - YYYMMDDHHmm_XXX_PRECIPET_SNOW.gif (14 colors for Snow)
+    *   -  ex: 201409201400_XFT_PRECIPET_RAIN.gif
+    * 
+    *   Individual radar with 8 colors intensity scale:
+    *   - YYYMMDDHHmm_XXX_PRECIPET_RAIN_A11Y.gif 
+    *   - YYYMMDDHHmm_XXX_PRECIPET_SNOW_A11Y.gif (14 colors for Snow)
+    *   - ex: 201409201400_XFT_PRECIPET_RAIN_A11Y.gif
+    * 
+    *   2. CAPPI
+    *   - YYYMMDDHHmm_XXX_CAPPI_1.5_RAIN_AGL.gif
+    *   - YYYMMDDHHmm_XXX_CAPPI_1.0_SNOW_AGL.gif
+    *   - ex: 200806191550_WHK_CAPPI_1.5_RAIN_AGL.gif
+    * 
+    *   3. 24_HR_ACCUM (based on the PRECIP product)
+    *   - YYYMMDDHHmm_XXX_24_HR_ACCUM_MM.gif
+    *   - ex: 200806161900_WBI_24_HR_ACCUM_MM.gif
+    * 
+    * 
+    *   Product times are in universal time (UTC).
+    *   XXX is the 3 letter radar identifier.
+    * 
+    */
+
+
     var overview = document.getElementById("overview")
     for (i=0;i<dates.length;i++) {
         /*
@@ -69,5 +115,5 @@ function start() {
     document.frame = 0;
     document.dates = getLastTenDates(new Date())
     makeImageRoster(document.dates)
-    window.setInterval(animate,1000)
+    window.setInterval(animate,500)
 }
