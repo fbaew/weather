@@ -5,10 +5,6 @@ import requests
 from os import listdir
 from os.path import isfile,join
 
-<<<<<<< HEAD
-=======
-#export http_proxy="http://proxy.mtechit.com:80"
->>>>>>> toMerge
 # townsURL = "http://weather.gc.ca/cacheable/images/radar/layers/default_cities/xsm_towns.gif"
 # roadsURL = "http://weather.gc.ca/cacheable/images/radar/layers/roads/XSM_roads.gif?ver=1410285168"
 # circlesURL = "http://weather.gc.ca/cacheable/images/radar/layers/radar_circle/radar_circle.gif"
@@ -81,13 +77,8 @@ class ImageAggregator(object):
                 print("Error opening/writing  " + fileName + ". Abort! Abort! Abandon program!")
                 raise
 
-<<<<<<< HEAD
     @staticmethod
     def dateRange(fromTime, toTime=datetime.datetime.utcnow(), minuteInterval=10):
-=======
-
-    def dateRange(self, fromTime, toTime=datetime.datetime.utcnow(), minuteInterval=10):
->>>>>>> toMerge
         """ Generator function for datetime objects fromTime toTime at given minuteInterval.
         """
         #Floors times to 10 minutes, wiping seconds, microseconds
@@ -108,17 +99,11 @@ class ImageAggregator(object):
             print("AAAAAAHHHHHHH!")
             raise StopIteration
 
-<<<<<<< HEAD
     def makeLatestImage(self, fromTime): 
         """ Needs implementation.  Takes a
         datetime object 'from', generates a gif fromTime til present. use os calls to
         imagemagik? Put it in self.directoryPath""" 
 
-=======
-    def makeLatestImage(self, fromTime):
-        """ Needs implementation.
-            Takes a datetime object 'from', generates a gif fromTime til present. use os calls to imagemagik? Put it in self.directoryPath"""
->>>>>>> toMerge
         pass
 
     def printImageList(self):
@@ -189,7 +174,6 @@ class Satellite(ImageAggregator):
 
 if __name__ == "__main__":
     now = datetime.datetime.utcnow()
-<<<<<<< HEAD
     fortyMinutesAgo = now - datetime.timedelta(minutes=40)
 
     print("retrieving satellite images for past 40 minutes")
@@ -205,20 +189,3 @@ if __name__ == "__main__":
 
     for date,reversedate in zip(dateRange(now,fortyMinutesAgo),dateRange(fortyMinutesAgo,now)):
         print(date.isoformat() + "  ||  " + reversedate.isoformat())
-=======
-
-    fortyMinutesAgo = now - datetime.timedelta(minutes=40)
-
-    sat = Satellite()
-    sat.downloadImages(sat.dateRange(fortyMinutesAgo))
-    sat.printImageList()
-
-    for date in sat.dateRange(now,fortyMinutesAgo):
-        print(date)
-    for date in sat.dateRange(fortyMinutesAgo,now):
-        print(date)
-
-    rad = Radar()
-    rad.downloadImages(rad.dateRange(fortyMinutesAgo))
-    rad.printImageList()
->>>>>>> toMerge
