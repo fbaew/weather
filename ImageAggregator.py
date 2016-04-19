@@ -5,7 +5,6 @@ import requests
 from os import listdir
 from os.path import isfile,join
 
-#export http_proxy="http://proxy.mtechit.com:80"
 # townsURL = "http://weather.gc.ca/cacheable/images/radar/layers/default_cities/xsm_towns.gif"
 # roadsURL = "http://weather.gc.ca/cacheable/images/radar/layers/roads/XSM_roads.gif?ver=1410285168"
 # circlesURL = "http://weather.gc.ca/cacheable/images/radar/layers/radar_circle/radar_circle.gif"
@@ -100,9 +99,11 @@ class ImageAggregator(object):
             print("AAAAAAHHHHHHH!")
             raise StopIteration
 
-    def makeLatestImage(self, fromTime):
-        """ Needs implementation.
-            Takes a datetime object 'from', generates a gif fromTime til present. use os calls to imagemagik? Put it in self.directoryPath"""
+    def makeLatestImage(self, fromTime): 
+        """ Needs implementation.  Takes a
+        datetime object 'from', generates a gif fromTime til present. use os calls to
+        imagemagik? Put it in self.directoryPath""" 
+
         pass
 
     def printImageList(self):
@@ -175,11 +176,13 @@ if __name__ == "__main__":
     now = datetime.datetime.utcnow()
     fortyMinutesAgo = now - datetime.timedelta(minutes=40)
 
+    print("retrieving satellite images for past 40 minutes")
     sat = Satellite()
     dateRange = sat.dateRange
     sat.downloadImages(dateRange(fortyMinutesAgo))
     sat.printImageList()
 
+    print("Retrieving radar images for past 40 minutes")
     rad = Radar()
     rad.downloadImages(rad.dateRange(fortyMinutesAgo))
     rad.printImageList()
